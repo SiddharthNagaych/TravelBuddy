@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className="flex justify-between items-center p-5">
         {/* Logo */}
         <div className="text-2xl font-bold flex items-center">
-          <img src="/logo1.webp" alt="Logo" className="h-10 w-auto" />
+          <img src="/logo.jpeg" alt="Logo" className="h-10 w-auto" />
         </div>
 
         {/* Navigation Links */}
