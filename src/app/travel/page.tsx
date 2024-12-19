@@ -9,11 +9,16 @@ const Travel = () => {
     currentDestination: "",
     travelingTo: "",
     sex: "",
-    password: "",
+    modeOfTransport: "",
+    numberOfPeople: "",
+    date: "",
   });
   const [searchCriteria, setSearchCriteria] = useState({
     currentDestination: "",
     travelingTo: "",
+    modeOfTransport: "",
+    numberOfPeople: "",
+    date: "",
   });
   const [partners, setPartners] = useState<any[]>([]);
   const [partnerFound, setPartnerFound] = useState(false);
@@ -41,15 +46,15 @@ const Travel = () => {
     const result = await response.json();
 
     if (response.ok) {
-      setMessage("Entry created successfully!"); // Show success message
+      setMessage("Entry created successfully!");
     } else {
       setMessage(result.message || "Error creating entry.");
     }
   };
 
   const handleFindPartner = async () => {
-    const { currentDestination, travelingTo } = searchCriteria;
-    const response = await fetch(`/api/findPartner?currentDestination=${currentDestination}&travelingTo=${travelingTo}`);
+    const queryParams = new URLSearchParams(searchCriteria).toString();
+    const response = await fetch(`/api/findPartner?${queryParams}`);
     const data = await response.json();
 
     if (response.ok) {
@@ -62,116 +67,162 @@ const Travel = () => {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Travel Partner Finder</h1>
+    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/bg1.jpeg')" }}>
+      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+      <div className="relative flex flex-col items-center justify-center p-8 text-white">
+        <h1 className="text-2xl font-bold mb-6">Travel Partner Finder</h1>
 
-      {/* Create Entry Form */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold">Create Entry</h2>
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={formData.name}
-          onChange={handleInputChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          value={formData.email}
-          onChange={handleInputChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <input
-          type="text"
-          name="contactNumber"
-          placeholder="Your Contact Number"
-          value={formData.contactNumber}
-          onChange={handleInputChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <input
-          type="text"
-          name="currentDestination"
-          placeholder="Current Destination"
-          value={formData.currentDestination}
-          onChange={handleInputChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <input
-          type="text"
-          name="travelingTo"
-          placeholder="Traveling To"
-          value={formData.travelingTo}
-          onChange={handleInputChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <input
-          type="text"
-          name="sex"
-          placeholder="Sex (Male/Female)"
-          value={formData.sex}
-          onChange={handleInputChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleInputChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <button
-          onClick={handleCreateEntry}
-          className="bg-[#71503A] text-white py-2 px-4 rounded"
-        >
-          Create Entry
-        </button>
-      </div>
+        {/* Create Entry Form */}
+        <div className="w-full max-w-md">
+          <h2 className="text-xl font-semibold mb-4">Create Entry</h2>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            value={formData.email}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="text"
+            name="contactNumber"
+            placeholder="Your Contact Number"
+            value={formData.contactNumber}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="text"
+            name="currentDestination"
+            placeholder="Current Destination"
+            value={formData.currentDestination}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="text"
+            name="travelingTo"
+            placeholder="Traveling To"
+            value={formData.travelingTo}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="text"
+            name="sex"
+            placeholder="Sex (Male/Female)"
+            value={formData.sex}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="text"
+            name="modeOfTransport"
+            placeholder="Mode of Transport (e.g., Car, Train)"
+            value={formData.modeOfTransport}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="number"
+            name="numberOfPeople"
+            placeholder="Number of People"
+            value={formData.numberOfPeople}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="date"
+            name="date"
+            placeholder="Travel Date"
+            value={formData.date}
+            onChange={handleInputChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <button
+            onClick={handleCreateEntry}
+            className="bg-[#71503A] text-white py-2 px-4 rounded"
+          >
+            Create Entry
+          </button>
+        </div>
 
-      {/* Search for Partners */}
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold">Find a Partner</h2>
-        <input
-          type="text"
-          name="currentDestination"
-          placeholder="Current Destination"
-          value={searchCriteria.currentDestination}
-          onChange={handleSearchChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <input
-          type="text"
-          name="travelingTo"
-          placeholder="Traveling To"
-          value={searchCriteria.travelingTo}
-          onChange={handleSearchChange}
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-        />
-        <button
-          onClick={handleFindPartner}
-          className="bg-[#71503A] text-white py-2 px-4 rounded"
-        >
-          Find Partner
-        </button>
+        {/* Search for Partners */}
+        <div className="w-full max-w-md mt-8">
+          <h2 className="text-xl font-semibold mb-4">Find a Partner</h2>
+          <input
+            type="text"
+            name="currentDestination"
+            placeholder="Current Destination"
+            value={searchCriteria.currentDestination}
+            onChange={handleSearchChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="text"
+            name="travelingTo"
+            placeholder="Traveling To"
+            value={searchCriteria.travelingTo}
+            onChange={handleSearchChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="text"
+            name="modeOfTransport"
+            placeholder="Mode of Transport"
+            value={searchCriteria.modeOfTransport}
+            onChange={handleSearchChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="number"
+            name="numberOfPeople"
+            placeholder="Number of People"
+            value={searchCriteria.numberOfPeople}
+            onChange={handleSearchChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <input
+            type="date"
+            name="date"
+            placeholder="Travel Date"
+            value={searchCriteria.date}
+            onChange={handleSearchChange}
+            className="block w-full p-2 border border-gray-300 bg-black text-white rounded mb-4"
+          />
+          <button
+            onClick={handleFindPartner}
+            className="bg-[#71503A] text-white py-2 px-4 rounded"
+          >
+            Find Partner
+          </button>
 
-        {/* Display search results */}
-        {partnerFound ? (
-          <div className="mt-4">
-            <h3 className="text-lg font-bold">Partners Found:</h3>
-            {partners.map((partner, index) => (
-              <div key={index} className="mt-2">
-                <p>Name: {partner.name}</p>
-                <p>Contact: {partner.contactNumber}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="mt-4 text-red-500">{message}</p>
-        )}
+          {/* Display search results */}
+          {partnerFound ? (
+            <div className="mt-4">
+              <h3 className="text-lg font-bold">Partners Found:</h3>
+              {partners.map((partner, index) => (
+                <div key={index} className="mt-2">
+                  <p>Name: {partner.name}</p>
+                  <p>Contact: {partner.contactNumber}</p>
+                  <p>Mode of Transport: {partner.modeOfTransport}</p>
+                  <p>Number of People: {partner.numberOfPeople}</p>
+                  <p>Date: {new Date(partner.date).toLocaleDateString()}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-4 text-red-500">{message}</p>
+          )}
+        </div>
       </div>
     </div>
   );

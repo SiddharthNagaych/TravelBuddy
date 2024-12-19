@@ -11,14 +11,30 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <div className="flex space-x-6">
-          {["Home", "About", "Contact", "Services", "Entries", "Buddies"].map((item) => (
-            <div
-              key={item}
-              className="text-black hover:bg-[#71503A] hover:text-white rounded cursor-pointer px-4 py-2"
-            >
-              {item}
-            </div>
-          ))}
+          <Link
+            href="/"
+            className="text-black hover:bg-[#71503A] hover:text-white rounded px-4 py-2"
+          >
+            Home
+          </Link>
+          <Link
+            href="/contact"
+            className="text-black hover:bg-[#71503A] hover:text-white rounded px-4 py-2"
+          >
+            Contact
+          </Link>
+          <Link
+            href="/travel"
+            className="text-black hover:bg-[#71503A] hover:text-white rounded px-4 py-2"
+          >
+            Services
+          </Link>
+          <Link
+            href="/about"
+            className="text-black hover:bg-[#71503A] hover:text-white rounded px-4 py-2"
+          >
+            About
+          </Link>
         </div>
       </div>
     </nav>

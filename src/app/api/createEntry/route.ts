@@ -5,7 +5,17 @@ import { NextResponse } from "next/server"; // Import NextResponse for returning
 export const POST = async (request: Request) => {
   try {
     // Parse the request body
-    const { name, email, contactNumber, currentDestination, travelingTo, sex, password } = await request.json();
+    const {
+      name,
+      email,
+      contactNumber,
+      currentDestination,
+      travelingTo,
+      sex,
+      modeOfTransport,
+      numberOfPeople,
+      date,
+    } = await request.json();
 
     // Ensure DB is connected
     await connectDB();
@@ -18,7 +28,9 @@ export const POST = async (request: Request) => {
       currentDestination,
       travelingTo,
       sex,
-      password,
+      modeOfTransport,
+      numberOfPeople,
+      date,
     });
 
     // Save the user to the database

@@ -26,8 +26,16 @@ const userSchema = new Schema({
     type: String, // 'Male', 'Female', or other options
     required: true,
   },
-  password: {
-    type: String,
+  modeOfTransport: {
+    type: String, // e.g., 'Car', 'Bus', 'Train'
+    required: true,
+  },
+  numberOfPeople: {
+    type: Number, // Number of people traveling
+    required: true,
+  },
+  date: {
+    type: Date, // Travel date
     required: true,
   },
 });
